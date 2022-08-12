@@ -1,0 +1,23 @@
+{
+	"name": "moonflower-installer",
+	"scripts": {
+		"build": "esbuild --loader:.css=dataurl --minify --external:wun:* --jsx-factory=h --jsx-fragment=Fragment --bundle --format=esm --outfile=bin/moonflower-installer --inject:src/utils/preact-shim.js src/app/installer-main.jsx",
+		"dev": "yarn build && ./bin/moonflower-installer",
+		"gen": "node tools/mkkeymaps.js"
+	},
+	"type": "module",
+	"dependencies": {
+		"@popperjs/core": "^2.11.5",
+		"bootstrap": "^5.2.0",
+		"bootswatch": "^5.2.0",
+		"esbuild": "^0.14.54",
+		"events": "^3.3.0",
+		"preact": "^10.10.1"
+	},
+	"_moduleAliases": {
+		"react": "node_modules/preact/compat"
+	},
+	"devDependencies": {
+		"fast-xml-parser": "^4.0.9"
+	}
+}

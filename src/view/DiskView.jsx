@@ -11,6 +11,10 @@ export default function KeyboardView({model}) {
 		});
 	},[]);
 
+	let diskClass="";
+	if (model.getDiskError())
+		diskClass="text-muted";
+
 	return <>
 		<Template model={model}>
 			<div class="text-start">
@@ -30,7 +34,8 @@ export default function KeyboardView({model}) {
 
 				<BsGroupInput title="Disk" type="select" 
 						options={model.getDiskOptions()}
-						onchange={exValue(model.setInstallDisk)}>
+						onchange={exValue(model.setInstallDisk)}
+						class={diskClass}>
 					{model.getDiskError() &&
 						<option selected disabled>{model.getDiskError()}</option>
 					}

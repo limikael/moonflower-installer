@@ -4,9 +4,15 @@ export function BsInput({...props}) {
 //	let options=usePromise(props.options,[props.options]);
 	let options=props.options;
 
+	let cls="";
+	if (props.class)
+		cls+=props.class;
+
+	delete props.class;
+
 	if (props.type=="textarea")
 		return (
-			<textarea class="form-control p-2" {...props}>{props.value}</textarea>
+			<textarea class={"form-control p-2 "+cls} {...props}>{props.value}</textarea>
 		);
 
 	if (props.type=="select") {
@@ -15,7 +21,7 @@ export function BsInput({...props}) {
 			optionElements=optionsFromObject(options);
 
 		return (
-			<select class="form-select p-2" {...props}>
+			<select class={"form-select p-2 "+cls} {...props}>
 				{optionElements}
 				{props.children}
 			</select>

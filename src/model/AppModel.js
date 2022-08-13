@@ -1,4 +1,7 @@
 import EventEmitter from "events";
+import {timezones} from "../data/timezones.js";
+import {call} from "wun:subprocess";
+import DiskModel from "./DiskModel.js";
 
 export default class AppModel extends EventEmitter {
 	constructor(routes) {
@@ -9,6 +12,21 @@ export default class AppModel extends EventEmitter {
 
 		this.keyboardLayout="us";
 		this.keyboardVariant="us";
+		this.timezoneRegion="UTC";
+		this.timezoneLocation="";
+
+		this.installMethod="disk";
+		this.installDisk=null;
+		this.installPart=null;
+
+		this.diskModel=new DiskModel();
+		this.diskModel.on("change",this.onDiskModelChange);
+		this.diskModel.updateDiskInfo();
+	}
+
+	onDiskModelChange=()=>{
+		this.validateDiskChoice();
+		this.emit("change");
 	}
 
 	getCurrentRouteComponent() {
@@ -42,5 +60,85 @@ export default class AppModel extends EventEmitter {
 	setKeyboardVariant=(variant)=>{
 		this.keyboardVariant=variant;
 		this.emit("change");
+	}
+
+	setTimezoneRegion=(region)=>{
+		if (region!=this.timezoneRegion) {
+			this.timezoneRegion=region;
+			this.timezoneLocation=timezones[region][0];
+			this.emit("change");
+		}
+	}
+
+	setTimezoneLocation=(location)=>{
+		this.timezoneLocation=location;
+		this.emit("change");
+	}
+
+	setInstallMethod=(method)=>{
+		this.installMethod=method;
+		this.validateDiskChoice();
+		this.emit("change");
+	}
+
+	setInstallDisk=(disk)=>{
+		this.installDisk=disk;
+		this.validateDiskChoice();
+		this.emit("change");
+	}
+
+	setInstallPart=(part)=>{
+		this.installPart=part;
+		this.validateDiskChoice();
+		this.emit("change");
+	}
+
+	validateDiskChoice=()=>{
+		let diskOptions=this.getDiskOptions();
+		if (!Object.keys(diskOptions).includes(this.installDisk))
+			this.installDisk=Object.keys(diskOptions)[0];
+
+		let partOptions=this.getPartOptions();
+		if (!Object.keys(partOptions).includes(this.installPart))
+			this.installPart=Object.keys(partOptions)[0];
+	}
+
+	getDiskOptions=()=>{
+		let options;
+
+		switch (this.installMethod) {
+			case "disk":
+				options=this.diskModel.getUnmountedDisks();
+
+			case "part":
+				options=this.diskModel.getDisksWithUnmountedParts();
+		}
+
+		return options;
+	}
+
+	getPartOptions=()=>{
+		return this.diskModel.getUnmountedParts(this.installDisk);
+	}
+
+	getDiskError() {
+		if (this.diskModel.error)
+			return this.diskModel.error;
+
+		if (!Object.keys(this.getDiskOptions()).length) {
+			switch (this.installMethod) {
+				case "disk":
+					return "No disks available."
+					return;
+
+				case "part":
+					return "No partitioned disks available."
+					return;
+			}
+		}
+	}
+
+	setAutoUpdateDisks=(value)=>{
+		this.diskModel.setAutoUpdate(value);
 	}
 }

@@ -1,6 +1,10 @@
+#!/usr/bin/env node
+
+import {XMLParser} from "fast-xml-parser";
 import fs from "fs";
 
-let evdev=JSON.parse(fs.readFileSync("tools/evdev.json"));
+let parser=new XMLParser();
+let evdev=parser.parse(fs.readFileSync("tools/apkroot/usr/share/X11/xkb/rules/evdev.xml"));
 
 let layoutObjs=[];
 for (let layout of evdev.xkbConfigRegistry.layoutList.layout) {
@@ -29,8 +33,12 @@ for (let layoutObj of layoutObjs) {
 	variants[layoutObj.name][layoutObj.name]=layoutObj.description;
 }
 
-delete layouts.custom;
-//console.log(layouts);
+for (let k of Object.keys(layouts)) {
+	if (!fs.existsSync("tools/apkroot/usr/share/bkeymaps/"+k)) {
+		delete layouts[k];
+		delete variants[k];
+	}
+}
 
 for (let layout of evdev.xkbConfigRegistry.layoutList.layout) {
 	if (layouts[layout.configItem.name] &&
@@ -41,8 +49,12 @@ for (let layout of evdev.xkbConfigRegistry.layoutList.layout) {
 			a=[a];
 
 		for (let variant of a) {
-//			console.log(variant);
-			variants[layout.configItem.name][variant.configItem.name]=variant.configItem.description;
+			let fn="tools/apkroot/usr/share/bkeymaps/"+
+				layout.configItem.name+"/"+layout.configItem.name+"-"+
+				variant.configItem.name+".bmap.gz"
+
+			if (fs.existsSync(fn))
+				variants[layout.configItem.name][variant.configItem.name]=variant.configItem.description;
 		}
 	}
 }

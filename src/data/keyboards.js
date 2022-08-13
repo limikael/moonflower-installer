@@ -1,6 +1,5 @@
 export const layouts={
   "al": "Albanian",
-  "et": "Amharic",
   "ara": "Arabic",
   "ma": "Arabic (Morocco)",
   "sy": "Arabic (Syria)",
@@ -20,14 +19,10 @@ export const layouts={
   "cz": "Czech",
   "dk": "Danish",
   "af": "Dari",
-  "mv": "Dhivehi",
   "nl": "Dutch",
-  "bt": "Dzongkha",
-  "au": "English (Australian)",
   "cm": "English (Cameroon)",
   "gh": "English (Ghana)",
   "ng": "English (Nigeria)",
-  "za": "English (South Africa)",
   "gb": "English (UK)",
   "us": "English (US)",
   "epo": "Esperanto",
@@ -37,8 +32,6 @@ export const layouts={
   "fi": "Finnish",
   "fr": "French",
   "ca": "French (Canada)",
-  "cd": "French (Democratic Republic of the Congo)",
-  "tg": "French (Togo)",
   "ge": "Georgian",
   "de": "German",
   "at": "German (Austria)",
@@ -54,7 +47,6 @@ export const layouts={
   "it": "Italian",
   "jp": "Japanese",
   "kz": "Kazakh",
-  "kh": "Khmer (Cambodia)",
   "kr": "Korean",
   "kg": "Kyrgyz",
   "la": "Lao",
@@ -63,12 +55,8 @@ export const layouts={
   "mk": "Macedonian",
   "my": "Malay (Jawi, Arabic Keyboard)",
   "mt": "Maltese",
-  "mao": "Maori",
   "md": "Moldavian",
-  "mn": "Mongolian",
   "me": "Montenegrin",
-  "gn": "N'Ko (AZERTY)",
-  "np": "Nepali",
   "no": "Norwegian",
   "ir": "Persian",
   "pl": "Polish",
@@ -83,32 +71,23 @@ export const layouts={
   "es": "Spanish",
   "latam": "Spanish (Latin American)",
   "ke": "Swahili (Kenya)",
-  "tz": "Swahili (Tanzania)",
   "se": "Swedish",
   "tw": "Taiwanese",
   "tj": "Tajik",
   "th": "Thai",
-  "bw": "Tswana",
   "tr": "Turkish",
   "tm": "Turkmen",
   "ua": "Ukrainian",
   "pk": "Urdu (Pakistan)",
   "uz": "Uzbek",
-  "vn": "Vietnamese",
-  "sn": "Wolof"
+  "vn": "Vietnamese"
 };
 
 export const variants={
-  "custom": {
-    "custom": "A user-defined custom Layout"
-  },
   "al": {
     "al": "Albanian",
     "plisi": "Albanian (Plisi)",
     "veqilharxhi": "Albanian (Veqilharxhi)"
-  },
-  "et": {
-    "et": "Amharic"
   },
   "ara": {
     "ara": "Arabic",
@@ -236,7 +215,7 @@ export const variants={
   },
   "cz": {
     "cz": "Czech",
-    "bksl": "Czech (with &lt;\\|&gt; key)",
+    "bksl": "Czech (with <\\|> key)",
     "qwerty": "Czech (QWERTY)",
     "qwerty_bksl": "Czech (QWERTY, extended backslash)",
     "qwerty-mac": "Czech (QWERTY, Macintosh)",
@@ -260,20 +239,11 @@ export const variants={
     "fa-olpc": "Dari (Afghanistan, OLPC)",
     "uz-olpc": "Uzbek (Afghanistan, OLPC)"
   },
-  "mv": {
-    "mv": "Dhivehi"
-  },
   "nl": {
     "nl": "Dutch",
     "us": "Dutch (US)",
     "mac": "Dutch (Macintosh)",
     "std": "Dutch (standard)"
-  },
-  "bt": {
-    "bt": "Dzongkha"
-  },
-  "au": {
-    "au": "English (Australian)"
   },
   "cm": {
     "cm": "English (Cameroon)",
@@ -299,9 +269,6 @@ export const variants={
     "igbo": "Igbo",
     "yoruba": "Yoruba",
     "hausa": "Hausa (Nigeria)"
-  },
-  "za": {
-    "za": "English (South Africa)"
   },
   "gb": {
     "gb": "English (UK)",
@@ -393,7 +360,7 @@ export const variants={
     "mac": "French (Macintosh)",
     "azerty": "French (AZERTY)",
     "afnor": "French (AZERTY, AFNOR)",
-    "bre": "Breton (France)",
+    "bre": "French (Breton)",
     "oci": "Occitan",
     "geo": "Georgian (France, AZERTY Tskapo)",
     "us": "French (US)"
@@ -407,12 +374,6 @@ export const variants={
     "multi-2gr": "Canadian (intl., 2nd part)",
     "ike": "Inuktitut",
     "eng": "English (Canada)"
-  },
-  "cd": {
-    "cd": "French (Democratic Republic of the Congo)"
-  },
-  "tg": {
-    "tg": "French (Togo)"
   },
   "ge": {
     "ge": "Georgian",
@@ -541,7 +502,6 @@ export const variants={
   },
   "id": {
     "id": "Indonesian (Latin)",
-    "javanese": "Javanese",
     "phonetic": "Indonesian (Arab Pegon, phonetic)",
     "phoneticx": "Indonesian (Arab Pegon, extended phonetic)"
   },
@@ -585,9 +545,6 @@ export const variants={
     "kazrus": "Kazakh (with Russian)",
     "ext": "Kazakh (extended)",
     "latin": "Kazakh (Latin)"
-  },
-  "kh": {
-    "kh": "Khmer (Cambodia)"
   },
   "kr": {
     "kr": "Korean",
@@ -634,15 +591,9 @@ export const variants={
     "alt-us": "Maltese (US, with AltGr overrides)",
     "alt-gb": "Maltese (UK, with AltGr overrides)"
   },
-  "mao": {
-    "mao": "Maori"
-  },
   "md": {
     "md": "Moldavian",
     "gag": "Moldavian (Gagauz)"
-  },
-  "mn": {
-    "mn": "Mongolian"
   },
   "me": {
     "me": "Montenegrin",
@@ -653,12 +604,6 @@ export const variants={
     "latinunicodeyz": "Montenegrin (Latin, Unicode, QWERTY)",
     "cyrillicalternatequotes": "Montenegrin (Cyrillic, with guillemets)",
     "latinalternatequotes": "Montenegrin (Latin, with guillemets)"
-  },
-  "gn": {
-    "gn": "N'Ko (AZERTY)"
-  },
-  "np": {
-    "np": "Nepali"
   },
   "no": {
     "no": "Norwegian",
@@ -738,8 +683,7 @@ export const variants={
     "chm": "Mari",
     "phonetic_azerty": "Russian (phonetic, AZERTY)",
     "phonetic_dvorak": "Russian (phonetic, Dvorak)",
-    "phonetic_fr": "Russian (phonetic, French)",
-    "ab": "Abkhazian (Russia)"
+    "phonetic_fr": "Russian (phonetic, French)"
   },
   "rs": {
     "rs": "Serbian",
@@ -791,9 +735,6 @@ export const variants={
     "ke": "Swahili (Kenya)",
     "kik": "Kikuyu"
   },
-  "tz": {
-    "tz": "Swahili (Tanzania)"
-  },
   "se": {
     "se": "Swedish",
     "nodeadkeys": "Swedish (no dead keys)",
@@ -821,13 +762,9 @@ export const variants={
     "tis": "Thai (TIS-820.2538)",
     "pat": "Thai (Pattachote)"
   },
-  "bw": {
-    "bw": "Tswana"
-  },
   "tr": {
     "tr": "Turkish",
     "f": "Turkish (F)",
-    "e": "Turkish (E)",
     "alt": "Turkish (Alt-Q)",
     "ku": "Kurdish (Turkey, Latin Q)",
     "ku_f": "Kurdish (Turkey, F)",
@@ -860,7 +797,6 @@ export const variants={
     "pk": "Urdu (Pakistan)",
     "urd-crulp": "Urdu (Pakistan, CRULP)",
     "urd-nla": "Urdu (Pakistan, NLA)",
-    "ara": "Arabic (Pakistan)",
     "snd": "Sindhi"
   },
   "uz": {
@@ -870,10 +806,7 @@ export const variants={
   "vn": {
     "vn": "Vietnamese",
     "us": "Vietnamese (US)",
-    "fr": "Vietnamese (France)"
-  },
-  "sn": {
-    "sn": "Wolof"
+    "fr": "Vietnamese (French)"
   }
 };
 

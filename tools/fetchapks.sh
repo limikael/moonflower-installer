@@ -3,5 +3,5 @@ fakeroot apk \
 	--allow-untrusted \
 	--root tools/apkroot \
 	--initdb \
-	--repository https://dl-cdn.alpinelinux.org/alpine/latest-stable/main/ \
+	--repository https://dl-cdn.alpinelinux.org/alpine/edge/main/ \
 	add xkeyboard-config kbd-bkeymaps tzdata

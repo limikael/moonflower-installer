@@ -1,7 +1,16 @@
 import Template from "./Template.jsx";
 import {BsInput, BsGroupInput} from "../utils/bs-util.jsx"
+import {exValue} from "../utils/js-util.js";
+import {useEffect} from "react";
 
 export default function KeyboardView({model}) {
+	useEffect(()=>{
+		model.setAutoUpdateDisks(true);
+		return (()=>{
+			model.setAutoUpdateDisks(false)
+		});
+	},[]);
+
 	return <>
 		<Template model={model}>
 			<div class="text-start">
@@ -11,23 +20,28 @@ export default function KeyboardView({model}) {
 
 				<BsGroupInput title="Installation type" type="select" 
 						options={{
-							1: "Install on entire disk",
-							2: "Install on existing partition"
+							"disk": "Install on entire disk",
+							"part": "Install on existing partition"
 						}}
+
+						value={model.installMethod}
+						onchange={exValue(model.setInstallMethod)}
 				/>
 
 				<BsGroupInput title="Disk" type="select" 
-						options={{
-							1: "TOSHIBA MQ01ABF0 (/dev/sda)",
-						}}
-				/>
+						options={model.getDiskOptions()}
+						onchange={exValue(model.setInstallDisk)}>
+					{model.getDiskError() &&
+						<option selected disabled>{model.getDiskError()}</option>
+					}
+				</BsGroupInput>
 
-				<BsGroupInput title="Partition" type="select" 
-						options={{
-							1: "Partition #1 (/dev/sda1, 123GB)", 
-							1: "Partition #2 (/dev/sda1, 123GB)", 
-						}}
-				/>
+				{model.installMethod=="part" &&
+						!!Object.keys(model.getPartOptions()).length &&
+					<BsGroupInput title="Partition" type="select" 
+							options={model.getPartOptions()}
+					/>
+				}
 			</div>
 		</Template>
 	</>;

@@ -9,15 +9,18 @@ import KeyboardView from "../view/KeyboardView.jsx";
 import TimezoneView from "../view/TimezoneView.jsx";
 import UserView from "../view/UserView.jsx";
 import DiskView from "../view/DiskView.jsx";
+import ConfirmView from "../view/ConfirmView.jsx";
+import InstallView from "../view/InstallView.jsx";
 
-const routes={
-	"Welcome": WelcomeView,
-	"Keyboard": KeyboardView,
-	"Timezone": TimezoneView,
-	"User": UserView,
-	"Disk": DiskView,
-	"Install": null, //InstallView
-}
+const routes=[
+	{component: WelcomeView, menuLabel: "Welcome"},
+	{component: KeyboardView, menuLabel: "Keyboard"},
+	{component: TimezoneView, menuLabel: "Timezone"},
+	{component: UserView, menuLabel: "User"},
+	{component: DiskView, menuLabel: "Disk"},
+	{component: ConfirmView, menuLabel: "Install"},
+	{component: InstallView}
+];
 
 export default function InstallerApp() {
 	let model=useInstance(AppModel,routes);

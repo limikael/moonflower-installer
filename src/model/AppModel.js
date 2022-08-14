@@ -30,8 +30,8 @@ export default class AppModel extends EventEmitter {
 	}
 
 	getCurrentRouteComponent() {
-		let k=Object.keys(this.routes)[this.currentRouteIndex];
-		return this.routes[k];
+//		let k=Object.keys(this.routes)[this.currentRouteIndex];
+		return this.routes[this.currentRouteIndex].component;
 	}
 
 	next=()=>{

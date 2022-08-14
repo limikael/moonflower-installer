@@ -1,27 +1,41 @@
 import {bindArgs} from "../utils/js-util.js";
 
-export default function Template({model, children}) {
-	let buttonEls=Object.keys(model.routes).map((k,i)=>{
-		let divCls="p-2 px-3 text-decoration-none";
-		let aCls="text-decoration-none";
+export default function Template({model, backProps, nextProps, children}) {
+	let buttonEls=model.routes.map((route, i)=>{
+		if (route.menuLabel) {
+			let divCls="p-2 px-3 text-decoration-none";
+			let aCls="text-decoration-none";
 
-		if (i==model.currentRouteIndex) {
-			divCls+=" bg-body";
-			aCls+=" text-body";
+			if (i==model.currentRouteIndex) {
+				divCls+=" bg-body";
+				aCls+=" text-body";
+			}
+
+			else {
+				aCls+=" text-muted";
+			}
+
+			return (
+				<div class={divCls}>
+					<a href="#" class={aCls} onclick={bindArgs(model.setCurrentRouteIndex,i)}>
+						<b>{route.menuLabel}</b>
+					</a>
+				</div>
+			)
 		}
-
-		else {
-			aCls+=" text-muted";
-		}
-
-		return (
-			<div class={divCls}>
-				<a href="#" class={aCls} onclick={bindArgs(model.setCurrentRouteIndex,i)}>
-					<b>{k}</b>
-				</a>
-			</div>
-		)
 	});
+
+	backProps={
+		onclick: model.back,
+		label: "Back",
+		...backProps
+	};
+
+	nextProps={
+		onclick: model.next,
+		label: "Next",
+		...nextProps
+	}
 
 	return <>
 		<div class="d-flex flex-row" style="width: 100%; height: 100%">
@@ -38,15 +52,13 @@ export default function Template({model, children}) {
 					</div>
 					<div class="row">
 						<div class="col-6 text-start">
-							<button class="btn btn-info btn-lg"
-									onclick={model.back}>
-								Back
+							<button class="btn btn-info btn-lg" {...backProps}>
+								{backProps.label}
 							</button>
 						</div>
 						<div class="col-6 text-end">
-							<button class="btn btn-info btn-lg"
-									onclick={model.next}>
-								Next
+							<button class="btn btn-info btn-lg" {...nextProps}>
+								{nextProps.label}
 							</button>
 						</div>
 					</div>

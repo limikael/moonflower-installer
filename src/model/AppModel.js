@@ -1,14 +1,15 @@
 import EventEmitter from "events";
 import {timezones} from "../data/timezones.js";
-import {call} from "wun:subprocess";
+import {call,spawn} from "wun:subprocess";
 import DiskModel from "./DiskModel.js";
+import SubprocessModel from "./SubprocessModel.js";
 
 export default class AppModel extends EventEmitter {
 	constructor(routes) {
 		super();
 
 		this.routes=routes;
-		this.currentRouteIndex=0;
+		this.currentRouteIndex=0; //6;
 
 		this.keyboardLayout="us";
 		this.keyboardVariant="us";
@@ -22,6 +23,8 @@ export default class AppModel extends EventEmitter {
 		this.diskModel=new DiskModel();
 		this.diskModel.on("change",this.onDiskModelChange);
 		this.diskModel.updateDiskInfo();
+
+		this.subprocessModel=new SubprocessModel();
 	}
 
 	onDiskModelChange=()=>{
@@ -140,5 +143,9 @@ export default class AppModel extends EventEmitter {
 
 	setAutoUpdateDisks=(value)=>{
 		this.diskModel.setAutoUpdate(value);
+	}
+
+	startInstallation=()=>{
+		this.subprocessModel.startInstallation();
 	}
 }

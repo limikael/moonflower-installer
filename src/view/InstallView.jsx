@@ -26,7 +26,7 @@ export default function ConfirmView({model}) {
 			</div>
 
 			<TermTextarea class="flex-fill form-control bg-black border-light text-success font-monospace"
-					style="resize: none" putsref={putsref} />
+					style="resize: none; overflow: hidden" putsref={putsref} />
 		</div>
 	</>;
 }

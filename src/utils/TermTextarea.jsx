@@ -16,6 +16,31 @@ export default function TermTextarea(props) {
 	let ref=useRef();
 	let state=useRefObject({lineEls: [], line: 0, col: 0});
 
+	function processEscapeSequence() {
+		switch (state.escapeSequence) {
+			case "7":
+				state.storedLine=state.line;
+				state.storedCol=state.col;
+				break;
+
+			case "8":
+				state.line=state.storedLine;
+				state.col=state.storedCol;
+				//state.col=0;
+				break;
+
+			case "[0K":
+				//let s=state.lineEls[state.line].textContent;
+				//s=s.substr(0,state.col);
+				//state.lineEls[state.line].textContent=s;
+				break;
+
+			default:
+				console.log("Unknown ansi: "+state.escapeSequence);
+				break;
+		}
+	}
+
 	function putc(c) {
 		if (c.charCodeAt(0)==0x1b) {
 			state.escaping=true;
@@ -28,26 +53,7 @@ export default function TermTextarea(props) {
 			if (c!="[" &&
 					(state.escapeSequence.length==1 || c.charCodeAt(0)>=0x40)) {
 				state.escaping=false;
-
-				if (state.escapeSequence=="7") {
-					state.storedLine=state.line;
-					state.storedCol=state.col;
-				}
-
-				else if (state.escapeSequence=="8") {
-					state.line=state.storedLine;
-					state.col=state.storedCol;
-				}
-
-				else if (state.escapeSequence=="[0K") {
-					let s=state.lineEls[state.line].textContent;
-					s=s.substr(0,state.col);
-					state.lineEls[state.line].textContent=s;
-				}
-
-				else {
-					console.log("Unknown ansi: "+state.escapeSequence);
-				}
+				processEscapeSequence();
 			}
 		}
 

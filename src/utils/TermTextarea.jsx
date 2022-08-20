@@ -1,15 +1,22 @@
 import {useRef} from "react";
 
+function useRefObject(initial) {
+	return useRef(initial).current;
+}
+
+function stringReplaceAt(s, index, replacement) {
+	if (index > s.length) {
+		return s;
+	}
+
+	return s.substring(0, index) + replacement + s.substring(index + 1);
+}
+
 export default function TermTextarea(props) {
 	let ref=useRef();
-	let stateRef=useRef({});
-	let state=stateRef.current;
+	let state=useRefObject({lineEls: [], line: 0, col: 0});
 
 	function putc(c) {
-		let textarea=ref.current;
-		/*if (c=="\n")
-			textarea.append(document.createElement("br"));*/
-
 		if (c.charCodeAt(0)==0x1b) {
 			state.escaping=true;
 			state.escapeSequence="";
@@ -21,36 +28,61 @@ export default function TermTextarea(props) {
 			if (c!="[" &&
 					(state.escapeSequence.length==1 || c.charCodeAt(0)>=0x40)) {
 				state.escaping=false;
-				console.log(state.escapeSequence);
 
 				if (state.escapeSequence=="7") {
-					console.log(textarea.textContent.length);
-					state.textContent=textarea.textContent;
+					state.storedLine=state.line;
+					state.storedCol=state.col;
 				}
 
-				if (state.escapeSequence=="8") {
-					textarea.textContent=state.textContent;
+				else if (state.escapeSequence=="8") {
+					state.line=state.storedLine;
+					state.col=state.storedCol;
+				}
+
+				else if (state.escapeSequence=="[0K") {
+					let s=state.lineEls[state.line].textContent;
+					s=s.substr(0,state.col);
+					state.lineEls[state.line].textContent=s;
+				}
+
+				else {
+					console.log("Unknown ansi: "+state.escapeSequence);
 				}
 			}
 		}
 
 		else {
-			textarea.innerHTML+=c;
+			if (c=="\n") {
+				state.line++;
+				state.col=0;
+				return;
+			}
+
+			if (!state.lineEls[state.line]) {
+				state.lineEls[state.line]=document.createElement("div");
+				ref.current.appendChild(state.lineEls[state.line]);
+			}
+
+
+			let s=state.lineEls[state.line].textContent;
+			s=stringReplaceAt(s,state.col,c);
+			state.lineEls[state.line].textContent=s;
+
+			state.col++;
 		}
 	}
 
 	function puts(data) {
-		let textarea=ref.current;
-
 		for (let c of data)
 			putc(c);
 
+		let textarea=ref.current;
 		textarea.scrollTop=textarea.scrollHeight;
 	}
 
 	props.putsref.current=puts;
 
 	return (
-		<pre {...props} ref={ref} />
+		<div {...props} ref={ref} />
 	);
 }

@@ -1,7 +1,2 @@
-apkroot
-apks
-attic
-iso
-tmp
-vm
-abuild
+tools/apkroot
+node_modules

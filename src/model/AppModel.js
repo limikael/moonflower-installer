@@ -9,7 +9,8 @@ export default class AppModel extends EventEmitter {
 		super();
 
 		this.routes=routes;
-		this.currentRouteIndex=6;
+//		this.currentRouteIndex=6;
+		this.currentRouteIndex=0;
 
 		this.keyboardLayout="us";
 		this.keyboardVariant="us";

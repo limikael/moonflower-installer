@@ -11,7 +11,7 @@ export default class DiskModel extends EventEmitter {
 		if (this.updatePromise)
 			return;
 
-		this.updatePromise=call("/usr/bin/lsblk",[
+		this.updatePromise=call("/bin/lsblk",[
 			"-JT",
 			"-oPATH,NAME,TYPE,VENDOR,MODEL,SIZE,LABEL,MOUNTPOINTS"
 		]);
